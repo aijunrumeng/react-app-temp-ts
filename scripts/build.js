@@ -18,7 +18,6 @@ const prodConfig = {
       patterns: [
         {
           from: 'src/assets/js',
-          // to: 'build/assets',
           to: 'assets/js',
         },
       ],

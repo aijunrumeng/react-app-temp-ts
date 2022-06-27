@@ -20,12 +20,11 @@ const devConfig = {
       index: true,
     },
     proxy: {
-      '/src/assets/images': {
-        target:
-          'https://assets-1302066225.cos.ap-nanjing.myqcloud.com/images/rain-effect',
+      '/xxx': {
+        target: 'xxx',
         secure: false,
         changeOrigin: true,
-        pathRewrite: { '/src/assets/images': '' },
+        pathRewrite: { '': '' },
       },
     },
     static: ['src'],

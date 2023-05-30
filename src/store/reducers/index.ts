@@ -1,12 +1,12 @@
-export const setInfo = (
-  state = '',
-  action: { type: string; data: unknown }
-) => {
-  const { type, data } = action;
+import { createAction, createReducer } from '@reduxjs/toolkit';
 
-  if (type === 'xxx') {
-    return data;
-  }
+const save = createAction('info/save');
+const clear = createAction('info/clear');
 
-  return state;
-};
+const initialState = 'info';
+
+export const setInfo = createReducer(initialState, (builder) => {
+  builder
+    .addCase(save, (_, action) => action.payload)
+    .addCase(clear, () => initialState);
+});

@@ -1,3 +1,13 @@
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/store';
+
 export default function Home() {
-  return <div>home</div>;
+  const info = useSelector((state: RootState) => state.info);
+
+  return (
+    <>
+      <div>home</div>
+      <div>store.info :{info}</div>
+    </>
+  );
 }

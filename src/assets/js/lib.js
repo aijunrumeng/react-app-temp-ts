@@ -1,3 +1,3 @@
-function test() {
-  console.log('test');
-}
+const a = 'hello world';
+
+console.log(a);

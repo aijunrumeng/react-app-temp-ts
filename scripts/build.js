@@ -7,6 +7,7 @@ const config = require('./config');
 
 const prodConfig = {
   mode: 'production',
+  devtool: false,
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: 'assets/js/[name].js',

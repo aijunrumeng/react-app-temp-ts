@@ -1,49 +1,51 @@
 const path = require('path');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshTypeScript = require('react-refresh-typescript');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-const config = {
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
+module.exports = {
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: 'inline-source-map',
   entry: {
     index: './src/index.tsx',
+  },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  devServer: {
+    hot: true,
+    port: 3000,
+    historyApiFallback: true,
+    static: [
+      './dist',
+      { directory: './src/assets/js', publicPath: '/assets/js' },
+    ],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.[t]sx?$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: require.resolve('ts-loader'),
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react'],
-              plugins: [
-                '@babel/plugin-syntax-dynamic-import',
-                [
-                  'import',
-                  {
-                    libraryName: 'antd',
-                    style: 'css',
-                  },
-                ],
-                [
-                  '@babel/plugin-proposal-decorators',
-                  {
-                    legacy: true,
-                  },
-                ],
-                [
-                  '@babel/plugin-proposal-class-properties',
-                  {
-                    loose: false,
-                  },
-                ],
-                '@babel/plugin-transform-runtime',
-              ],
+              getCustomTransformers: () => ({
+                before: [isDevelopment && ReactRefreshTypeScript()].filter(
+                  Boolean
+                ),
+              }),
+              transpileOnly: true,
             },
           },
         ],
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader' },
       {
         test: /\.less$/,
         use: [
@@ -54,7 +56,7 @@ const config = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[name]-[local]-[hash:base64:5]',
+                localIdentName: '[local]-[hash:base64:5]',
               },
               sourceMap: true,
             },
@@ -89,15 +91,15 @@ const config = {
     ],
   },
   plugins: [
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
     new ProgressBarPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'public/index.html',
     }),
-  ],
-  optimization: {
-    runtimeChunk: 'single',
-  },
+  ].filter(Boolean),
+
   resolve: {
     extensions: ['.js', '.jsx', '.es6', '.ts', '.tsx'],
     alias: {
@@ -106,5 +108,3 @@ const config = {
     fallback: { os: false },
   },
 };
-
-module.exports = config;

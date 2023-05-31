@@ -3,7 +3,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 const save = createAction('info/save');
 const clear = createAction('info/clear');
 
-const initialState = 'infoinfo111';
+const initialState = 'hello';
 
 export const setInfo = createReducer(initialState, (builder) => {
   builder

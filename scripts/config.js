@@ -20,7 +20,7 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    port: 3000,
+    port: 3001,
     historyApiFallback: true,
     static: [
       './dist',
@@ -58,7 +58,7 @@ module.exports = {
               modules: {
                 localIdentName: '[local]-[hash:base64:5]',
               },
-              sourceMap: true,
+              sourceMap: isDevelopment,
             },
           },
           {

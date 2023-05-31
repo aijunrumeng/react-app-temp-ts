@@ -19,7 +19,7 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "@reduxjs/toolkit": "^1.8.4",
-    "ansi-regex": "^6.0.1",
+    "@ant-design/icons": "^5.1.4",
     "antd": "^4.21.3",
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
@@ -35,9 +35,6 @@
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
-    "@types/draft-js": "^0.11.9",
-    "@types/draftjs-to-html": "^0.8.1",
-    "@types/html-to-draftjs": "^1.4.0",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "clean-webpack-plugin": "^4.0.0",

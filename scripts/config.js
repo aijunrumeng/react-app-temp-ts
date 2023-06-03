@@ -9,7 +9,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: isDevelopment ? 'development' : 'production',
-  devtool: 'inline-source-map',
+  devtool: 'eval-cheap-module-source-map',
   entry: {
     index: './src/index.tsx',
   },
@@ -47,11 +47,9 @@ module.exports = {
         ],
       },
       {
-        test: /\.less$/,
+        test: /\.s[ac]ss$/i,
         use: [
-          {
-            loader: 'style-loader',
-          },
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -62,9 +60,9 @@ module.exports = {
             },
           },
           {
-            loader: 'less-loader',
+            loader: 'sass-loader',
             options: {
-              lessOptions: {
+              sassOptions: {
                 javascriptEnabled: true,
               },
             },

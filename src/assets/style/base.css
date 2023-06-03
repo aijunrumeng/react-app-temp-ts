@@ -21,4 +21,11 @@ li {
 }
 
 
+@media (width > 600px) {
+  body {
+    line-height: 1.4;
+    color: red;
+  }
+}
+
 
